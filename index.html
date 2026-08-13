@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Cards</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #222;
+        }
+
+        .pricing-section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .pricing-section h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .pricing-section > p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* Toggle */
+        .toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .toggle button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: #ddd;
+            font-weight: bold;
+        }
+
+        .toggle .active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .pricing-container {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card.popular {
+            border: 3px solid #2563eb;
+        }
+
+        .popular-label {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2563eb;
+            color: white;
+            padding: 7px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 40px;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 25px;
+        }
+
+        .price span {
+            font-size: 15px;
+            color: #777;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .features li::before {
+            content: "✓";
+            color: #16a34a;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        @media (max-width: 800px) {
+            .pricing-container {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+            }
+
+            .pricing-section h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<section class="pricing-section">
+
+    <h1>Choose Your Plan</h1>
+    <p>Simple and flexible pricing for everyone.</p>
+
+    <div class="toggle">
+        <button id="monthly" class="active">Monthly</button>
+        <button id="yearly">Yearly</button>
+    </div>
+
+    <div class="pricing-container">
+
+        <!-- Basic -->
+        <div class="card">
+            <h2>Basic</h2>
+
+            <div class="price">
+                ₹<span class="amount" data-monthly="199" data-yearly="1999">199</span>
+                <span>/month</span>
+            </div>
+
+            <ul class="features">
+                <li>5 Projects</li>
+                <li>10 GB Storage</li>
+                <li>Email Support</li>
+                <li>Basic Analytics</li>
+            </ul>
+
+            <button class="btn" onclick="choosePlan('Basic')">
+                Choose Plan
+            </button>
+        </div>
+
+        <!-- Pro -->
+        <div class="card popular">
+
+            <div class="popular-label">Most Popular</div>
+
+            <h2>Pro</h2>
+
+            <div class="price">
+                ₹<span class="amount" data-monthly="499" data-yearly="4999">499</span>
+                <span>/month</span>
+            </div>
+
+            <ul class="features">
+                <li>Unlimited Projects</li>
+                <li>50 GB Storage</li>
+                <li>Priority Support</li>
+                <li>Advanced Analytics</li>
+            </ul>
+
+            <button class="btn" onclick="choosePlan('Pro')">
+                Choose Plan
+            </button>
+        </div>
+
+        <!-- Premium -->
+        <div class="card">
+            <h2>Premium</h2>
+
+            <div class="price">
+                ₹<span class="amount" data-monthly="999" data-yearly="9999">999</span>
+                <span>/month</span>
+            </div>
+
+            <ul class="features">
+                <li>Unlimited Projects</li>
+                <li>200 GB Storage</li>
+                <li>24/7 Support</li>
+                <li>Premium Analytics</li>
+            </ul>
+
+            <button class="btn" onclick="choosePlan('Premium')">
+                Choose Plan
+            </button>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    const monthlyBtn = document.getElementById("monthly");
+    const yearlyBtn = document.getElementById("yearly");
+    const amounts = document.querySelectorAll(".amount");
+
+    monthlyBtn.addEventListener("click", () => {
+
+        amounts.forEach(amount => {
+            amount.textContent = amount.dataset.monthly;
+        });
+
+        monthlyBtn.classList.add("active");
+        yearlyBtn.classList.remove("active");
+    });
+
+    yearlyBtn.addEventListener("click", () => {
+
+        amounts.forEach(amount => {
+            amount.textContent = amount.dataset.yearly;
+        });
+
+        yearlyBtn.classList.add("active");
+        monthlyBtn.classList.remove("active");
+    });
+
+    function choosePlan(plan) {
+        alert("You selected the " + plan + " plan!");
+    }
+</script>
+
+</body>
+</html>
